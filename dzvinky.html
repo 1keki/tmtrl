@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Розклад дзвінків</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Verdana, sans-serif;
+      background-color: #f8efd0;
+      text-align: center;
+      padding: 0;
+    }
+    .navbar {
+      background-color: #333;
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+    }
+    .menu-btn {
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #444;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1000;
+    }
+    .sidenav a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      display: block;
+      transition: 0.2s;
+    }
+    .sidenav a:hover {
+      background-color: #575757;
+    }
+  .sidenav a.active {
+      background-color: #222;
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: 45px;
+      color: #444;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: normal;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 80%;
+      max-width: 600px;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(44, 43, 43, 0.733);
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #4d70e2;
+      color: #333;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .back-link {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #353433;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+    .back-link:hover {
+      background-color: #444444;
+      color: rgb(255, 255, 255);
+    }
+  </style>
+</head>
+<body>
+
+  
+
+<!-- Верхня панель с бургер-меню, TMTRL и "Шкільний сайт" -->
+<div class="navbar" style="display:flex;align-items:center;position:relative;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="menu-btn" onclick="openNav()" style="font-size:28px;cursor:pointer;display:flex;flex-direction:column;gap:4px;line-height:1;">
+      <span style="display:block;width:28px;height:4px;background:#fff;border-radius:2px;"></span>
+      <span style="display:block;width:28px;height:4px;background:#fff;border-radius:2px;"></span>
+      <span style="display:block;width:28px;height:4px;background:#fff;border-radius:2px;"></span>
+    </span>
+    <span style="font-size:18px;font-family:inherit;">Шкільний сайт</span>
+  </div>
+  <span style="flex:1"></span>
+  <span style="position:absolute;left:80%;transform:translateX(-50%);font-size:26px;font-family:'Arial Black',Arial,sans-serif;letter-spacing:1px;">TMTRL</span>
+</div>
+
+<!-- Бокове меню -->
+<div id="mySidenav" class="sidenav">
+  <span class="closebtn" onclick="closeNav()">×</span>
+  <a href="index.html">🏠 Головна</a>
+  <a href="rozklad.html">📚 Розклад</a>
+  <a href="dzvinky.html" class="active">⏰ Дзвінки</a>
+  <a href="info.html">ℹ Інше</a>
+</div>
+
+<div class="content">
+  <h1>Розклад дзвінків</h1>
+
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+</script>
+
+<!-- Блок онлайн таймера -->
+<div class="timer-block">
+  <div id="currentTime" class="time"></div>
+  <div id="lessonStatus" class="time"></div>
+  <div id="countdown" class="time"></div>
+</div>
+
+<script>
+  const schedule = [
+    ["08:00", "08:45"],
+    ["08:55", "09:40"],
+    ["09:50", "10:35"],
+    ["11:05", "11:50"],
+    ["12:00", "12:45"],
+    ["12:55", "13:40"],
+    ["13:50", "14:35"],
+    ["15:10", "15:55"]
+  ];
+
+  function updateClock() {
+    const now = new Date();
+    const current = now.toLocaleTimeString("uk-UA", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+   // document.getElementById("currentTime").textContent = "К.Ч.: " + current;
+
+    let status = "Уроки закінчились";
+    let countdown = "";
+    
+    for (let i = 0; i < schedule.length; i++) {
+      const [start, end] = schedule[i];
+      const startDate = new Date(now.toDateString() + " " + start);
+      const endDate = new Date(now.toDateString() + " " + end);
+      
+      if (now >= startDate && now <= endDate) {
+        status = `Зараз: ${i+1}-й урок (${start} – ${end})`;
+        const diff = Math.floor((endDate - now) / 1000);
+        const m = Math.floor(diff / 60);
+        const s = diff % 60;
+        countdown = `До кінця уроку: ${m} хв ${s} сек`;
+      } else if (i < schedule.length-1) {
+        const nextStart = new Date(now.toDateString() + " " + schedule[i+1][0]);
+        if (now > endDate && now < nextStart) {
+          status = `Перерва (наступний ${i+2}-й урок ${schedule[i+1][0]})`;
+          const diff = Math.floor((nextStart - now) / 1000);
+          const m = Math.floor(diff / 60);
+          const s = diff % 60;
+          countdown = `До початку уроку: ${m} хв ${s} сек`;
+        }
+      }
+    }
+    
+    document.getElementById("lessonStatus").textContent = status;
+    // Если статус - Перерва и countdown начинается с 'До початку уроку', добавим отступ
+    const lessonStatusDiv = document.getElementById("lessonStatus");
+    const countdownDiv = document.getElementById("countdown");
+    lessonStatusDiv.textContent = status;
+    if (status.startsWith('Перерва') && countdown.startsWith('До початку уроку')) {
+      lessonStatusDiv.style.marginBottom = '32px';
+    } else if (status.startsWith('Зараз') && countdown.startsWith('До кінця уроку')) {
+      lessonStatusDiv.style.marginBottom = '32px';
+    } else {
+      lessonStatusDiv.style.marginBottom = '';
+    }
+    countdownDiv.textContent = countdown;
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
+</script>
+
+
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+
+  .timer-block {
+    background: #333;
+    color: #fff;
+    padding: 8px;
+    border-radius: 22px;
+    margin-bottom: 15px;
+    height: 120px;
+    width: 290px;
+     margin: 0 auto 15px auto;
+    
+
+  }
+  .time {
+    font-size: 20px;
+    margin: 10px 0;
+    font-family: 'play';
+  }
+</style>
+
+
+
+  <h2>(усі часи подано по К.Ч.)</h2>
+
+  <table>
+    <tr>
+      <th>Урок</th>
+      <th>Час</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>08:00 – 08:45</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>08:55 – 09:40</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>09:50 – 10:35</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>11:05 – 11:50</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>12:00 – 12:45</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>12:55 – 13:40</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>13:50 – 14:35</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>15:10 – 15:55</td>
+    </tr>
+  </table>
+
+  <a href="index.html" class="back-link">← Повернутися на головну</a>
+
+</div>
+
+
+
+</body>
+</html>

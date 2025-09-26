@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Шкільний сайт</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8efd0;
+    }
+
+    /* Верхня панель */
+    .navbar {
+      background-color: #333;
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-btn {
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    /* Бокове меню */
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #444;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
+
+    .sidenav a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      display: block;
+      transition: 0.2s;
+    }
+
+    .sidenav a:hover {
+      background-color: #575757;
+    }
+
+    .sidenav a.active {
+      background-color: #222;
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    /* Контент */
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .rounded-img {
+      border-radius: 20px;
+      max-width: 350px;
+      width: 90%;
+      height: auto;
+      margin: 20px auto;
+      display: block;
+    }
+
+    footer {
+      background-color: #33333349;
+      color: #fff;
+      text-align: center;
+      padding: 16px 0 10px 0;
+      font-size: 16px;
+      margin-top: 40px;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Верхня панель с бургер-меню, TMTRL и "Шкільний сайт" -->
+<div class="navbar" style="display:flex;align-items:center;position:relative;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="menu-btn" onclick="openNav()" style="font-size:28px;cursor:pointer;display:flex;flex-direction:column;gap:4px;line-height:1;">
+      <span style="display:block;width:28px;height:4px;background:#fff;border-radius:2px;"></span>
+      <span style="display:block;width:28px;height:4px;background:#fff;border-radius:2px;"></span>
+      <span style="display:block;width:28px;height:4px;background:#fff;border-radius:2px;"></span>
+    </span>
+    <span style="font-size:18px;font-family:inherit;">Шкільний сайт</span>
+  </div>
+  <span style="flex:1"></span>
+  <span style="position:absolute;left:80%;transform:translateX(-50%);font-size:26px;font-family:'Arial Black',Arial,sans-serif;letter-spacing:1px;">TMTRL</span>
+</div>
+
+<!-- Бокове меню -->
+<div id="mySidenav" class="sidenav">
+  <span class="closebtn" onclick="closeNav()">×</span>
+  <a href="index.html" class="active">🏠 Головна</a>
+  <a href="rozklad.html">📚 Розклад</a>
+  <a href="dzvinky.html">⏰ Дзвінки</a>
+  <a href="info.html">ℹ Інше</a>
+</div>
+
+<!-- Контент -->
+<div class="content">
+  <h2>Ласкаво просимо!</h2>
+
+  <!-- Фото з закругленими гранями -->
+  <img src="https://scontent.fudj3-1.fna.fbcdn.net/v/t39.30808-6/323987277_1161664804460645_1832784783984887527_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=YaTghQAO530Q7kNvwFt-wft&_nc_oc=Admlbvi1nmQ7AJd8-uVYgHRXrpfd4Xe65HZbMekfaF4BcU0aE-n0CoFktrRkaWrV1bY&_nc_zt=23&_nc_ht=scontent.fudj3-1.fna&_nc_gid=jzqtdX7xRIvHLFw0eZjdOA&oh=00_AfY2mylhAhfCM4rkTQdLriwP4Yd_mGfd8CQbWC7J2ImwxQ&oe=68D0DC08" alt="Фото" class="rounded-img">
+  <!-- Замість URL_ТУТ вставте посилання на своє фото -->
+</div>
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" 
+  src="https://connect.facebook.net/uk_UA/sdk.js#xfbml=1&version=v18.0" nonce="abc123"></script>
+
+
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+</script>
+
+<footer>
+  <p>© 2025 TMTRL</p>
+  <p>by: Keki</p>
+</footer>
+
+</body>
+</html>
